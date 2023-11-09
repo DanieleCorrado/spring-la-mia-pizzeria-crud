@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="fragments/resources :: headResources('Pizzas List')"></head>
+<body>
+<div class="container">
+    <h1 class="mt-2">Pizza List</h1>
+    <hr>
+    <div th:if="${pizzaList.size() > 0}">
+        <table class="table mt-2">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Price</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="pizza : ${pizzaList}" th:object="${pizza}">
+                <td th:text="*{name}"></td>
+                <td th:text="*{description}"></td>
+                <td th:text="|*{price} Є|"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    
+    <div th:unless="${pizzaList.size() > 0}">
+        <h2>There are no pizzas available</h2>
+    </div>
+</div>
+
+</body>
+</html>
