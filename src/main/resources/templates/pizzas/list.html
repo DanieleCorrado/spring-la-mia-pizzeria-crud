@@ -18,7 +18,13 @@
             </div>
         </form>
     </div>
+    
     <hr>
+    
+    <div class="my-3">
+        <a th:href="@{/pizzas/create}" class="btn btn-primary">Add new Pizza</a>
+    </div>
+    
     <div th:if="${pizzaList.size() > 0}">
         <table class="table mt-2">
             <thead>

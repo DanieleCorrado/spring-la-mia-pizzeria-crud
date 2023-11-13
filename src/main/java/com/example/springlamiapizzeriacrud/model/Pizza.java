@@ -1,6 +1,8 @@
 package com.example.springlamiapizzeriacrud.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -15,12 +17,22 @@ public class Pizza {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @NotBlank(message = "Name must not be blank")
     private String name;
+
+    @NotBlank(message = "Description must not be blank")
     @Lob
     private String description;
+
+    @NotBlank(message = "Photo url must not be blank")
     private String photo;
+
+    @DecimalMin(value = "0.0", inclusive = false, message = "Price must be grater than 0.0")
+    @Digits(integer=3, fraction=2, message = "Insert max 2 digits after .")
+    @NotNull(message = "Price must not be blank")
     private BigDecimal price;
 
+    @CreationTimestamp
     private LocalDateTime created_at;
 
     // GETTER E SETTER
