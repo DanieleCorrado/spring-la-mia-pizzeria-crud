@@ -2,8 +2,22 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:insert="fragments/resources :: headResources('Pizzas List')"></head>
 <body>
+<nav th:replace="fragments/navbar :: topNavbar('pizzas')"></nav>
 <div class="container">
-    <h1 class="mt-2">Pizza List</h1>
+    <div class="d-flex align-item-center justify-content-between">
+        
+        <h1 class="mt-2">Pizza List</h1>
+        <form th:action="@{/pizzas}" method="GET" class="my-3">
+            <div class="input-group">
+                
+                <input type="text"
+                       placeholder="Search by name"
+                       class="form-control" name="search"
+                       th:value="${param.search}">
+                <button class="btn btn-primary" type="submit">Search</button>
+            </div>
+        </form>
+    </div>
     <hr>
     <div th:if="${pizzaList.size() > 0}">
         <table class="table mt-2">
@@ -12,6 +26,7 @@
                 <th>Name</th>
                 <th>Description</th>
                 <th>Price</th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
@@ -19,6 +34,9 @@
                 <td th:text="*{name}"></td>
                 <td th:text="*{description}"></td>
                 <td th:text="|*{price} Є|"></td>
+                <td>
+                    <a th:href="@{/pizzas/show/{id}(id=*{id})}" title="details">details</a>
+                </td>
             </tr>
             </tbody>
         </table>
