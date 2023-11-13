@@ -3,6 +3,7 @@ package com.example.springlamiapizzeriacrud.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.validator.constraints.URL;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -25,6 +26,7 @@ public class Pizza {
     private String description;
 
     @NotBlank(message = "Photo url must not be blank")
+    @URL(message = "Insert a valid URL")
     private String photo;
 
     @DecimalMin(value = "0.0", inclusive = false, message = "Price must be grater than 0.0")
