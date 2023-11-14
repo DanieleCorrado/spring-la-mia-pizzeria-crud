@@ -1,4 +1,4 @@
-package com.example.springlamiapizzeriacrud;
+package com.example.springlamiapizzeriacrud.service;
 
 import com.example.springlamiapizzeriacrud.exceptions.PizzaNotFoundException;
 import com.example.springlamiapizzeriacrud.exceptions.NameUniqueException;
@@ -22,6 +22,9 @@ public class PizzaService {
 
     // METODI
 
+
+    // Ottengo la lista di pizze presenti in database
+
     public List<Pizza> getPizzaList(Optional<String> search) {
 
 
@@ -42,28 +45,13 @@ public class PizzaService {
 
     public Pizza getPizzaById(Integer id) throws PizzaNotFoundException {
 
-//        Optional<Pizza> result = pizzaRepository.findById(id);
-//
-//        // Verifico se il risultato è presente
-//
-//        if(result.isPresent()) {
-//
-//            return result.get();
-//
-//        } else {
-//
-//            // Se non trovo il libro sollevo un eccezione
-//
-//            throw new PizzaNotFoundException("Pizza with id " + id + " not found");
-//        }
+        // Cerco la pizza per id nel caso in cui non sia presente lancio un eccezione PizzaNotFoundException
 
-       /* EQUIVALENTE
-       */
         return pizzaRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Pizza with id " + id + " not found"));
 
     }
 
-    // Creazione di un nuovo libro
+    // Creazione di una nuova pizza
 
     public Pizza createPizza(Pizza pizza) {
 
@@ -77,27 +65,28 @@ public class PizzaService {
         }
     }
 
-    // Modificare un libro con un id
+    // Modificare una pizza per id
 
     public Pizza editPizza(Pizza pizza) throws PizzaNotFoundException{
 
         Pizza pizzaToEdit = getPizzaById(pizza.getId());
 
 
-        // Se lo trovo modifico solo gli attributi che erano campi del form
+        // Se la trovo modifico solo gli attributi che erano campi del form
 
         pizzaToEdit.setName(pizza.getName());
         pizzaToEdit.setDescription(pizza.getDescription());
         pizzaToEdit.setPrice(pizza.getPrice());
 
-        // Se non ci sono errori salvo il libro
+        // Se non ci sono errori salvo la pizza
 
         Pizza savedPizza = pizzaRepository.save(pizzaToEdit);
 
         return pizzaRepository.save(savedPizza);
     }
 
-    // Eliminare un libro dal database
+    // Eliminare una pizza dal database
+
     public void deletePizza(Integer id) {
         pizzaRepository.deleteById(id);
     }
