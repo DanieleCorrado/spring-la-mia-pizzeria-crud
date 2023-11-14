@@ -11,5 +11,15 @@
         </ul>
     </div>
 </th:block>
+
+<th:block th:fragment="descriptionField(type, label, fieldName)">
+    <label th:text="${label}" class="form-label"></label>
+    <textarea class="form-control" th:id="${fieldName}" rows="5" th:field="*{__${fieldName}__}" th:errorclass="is-invalid"></textarea>
+    <div th:if="${#fields.hasErrors(fieldName)}" class="invalid-feedback">
+        <ul>
+            <li th:each="err : ${#fields.errors(fieldName)}" th:text="${err}"></li>
+        </ul>
+    </div>
+</th:block>
 </body>
 </html>

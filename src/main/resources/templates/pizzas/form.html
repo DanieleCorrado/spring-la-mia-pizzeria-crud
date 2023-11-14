@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:with="isEdit=${pizza.id != null}">
+<head th:insert="fragments/resources :: headResources(${isEdit ? 'Edit Pizza' : 'Create Pizza'})"></head>
+<body>
+<nav th:replace="fragments/navbar :: topNavbar('pizzas')"></nav>
+<div class="container">
+    
+    <h1 th:text="${isEdit ? 'Edit Pizza' : 'Create Pizza'}"></h1>
+    
+    <form
+          th:with="actionUrl=${isEdit ? '/pizzas/edit/' + pizza.id : '/pizzas/create'}"
+          id="pizza-create"
+          method="POST"
+          th:action="@{${actionUrl}}"
+          th:object="${pizza}"
+          class="row gy-2">
+        
+        <!-- Name-->
+        
+        <div class="col-12" th:insert="fragments/components :: formField('text', 'Name', 'name')"></div>
+        
+        <!-- Image url-->
+        
+        <div class="col-12" th:insert="fragments/components :: formField('text', 'Image URL', 'photo')"></div>
+        
+        <!-- Price-->
+        
+        <div class="col-12" th:insert="fragments/components :: formField('number', 'Price', 'price')"></div>
+        
+        <!-- description -->
+        
+        <div class="col-12" th:insert="fragments/components :: descriptionField('text', 'Description', 'description')"></div>
+        
+        <!-- actions -->
+        
+        <div class="col-12">
+            <button class="btn btn-primary" type="submit">Save</button>
+            <a th:href="@{/pizzas}" class="btn btn-primary">Cancel</a>
+        </div>
+    
+    </form>
+</div>
+</body>
+</html>

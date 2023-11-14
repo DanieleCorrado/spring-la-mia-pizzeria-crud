@@ -4,6 +4,14 @@
 <body>
 <nav th:replace="fragments/navbar :: topNavbar('pizzas')"></nav>
 <div class="container">
+    
+    <!-- Message da redirectAttributes-->
+    
+    <div th:if="${message != null}" class="alert alert-success alert-dismissible my-3">
+        <span th:text="${message}"></span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    
     <div class="d-flex align-item-center justify-content-between">
         
         <h1 class="mt-2">Pizza List</h1>
@@ -40,8 +48,14 @@
                 <td th:text="*{name}"></td>
                 <td th:text="*{description}"></td>
                 <td th:text="|*{price} Є|"></td>
-                <td>
-                    <a th:href="@{/pizzas/show/{id}(id=*{id})}" title="details">details</a>
+                <td class="d-flex align-content-between align-items-center mx-2">
+                    <a th:href="@{/pizzas/show/{id}(id=*{id})}" title="details" class="btn btn-primary mx-1"><i class="fa-solid fa-pizza-slice"></i></a>
+                    <a th:href="@{/pizzas/edit/{id}(id=*{id})}" title="edit" class="btn btn-primary mx-1"><i class="fa-solid fa-pen-to-square"></i></a>
+                    <form method="POST" th:action="@{/pizzas/delete/{id}(id=*{id})}" onsubmit="return confirm('Are you sure?')">
+                        <button type="submit" class="btn btn-primary mx-1">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                    </form>
                 </td>
             </tr>
             </tbody>
@@ -52,6 +66,5 @@
         <h2>There are no pizzas available</h2>
     </div>
 </div>
-
 </body>
 </html>

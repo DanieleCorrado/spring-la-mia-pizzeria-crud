@@ -19,6 +19,7 @@ public class Pizza {
     private Integer id;
 
     @NotBlank(message = "Name must not be blank")
+    @Column(nullable = false, unique = true)
     private String name;
 
     @NotBlank(message = "Description must not be blank")
